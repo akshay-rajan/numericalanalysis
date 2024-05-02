@@ -1,0 +1,1058 @@
+\documentclass[12pt,a4paper,oneside]{book}
+\usepackage[lmargin=4cm,rmargin=3cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{amsmath,commath,amssymb,amsthm,bbm,graphicx,listings,lstautogobble}
+\newtheorem{dfn}{Definition}[chapter]
+\newtheorem{equ}{equation}[chapter]
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{prop}{Prposition}
+\newtheorem{ex}{Example}[chapter]
+\newtheorem{rmm}{Remark}[chapter]
+\newtheorem{exr}{Exercise}[chapter]
+\newtheorem{cor}{Corollary}[chapter]
+\lstset{language=python,frame=single,autogobble=true}
+\renewcommand{\baselinestretch}{1.4}
+
+\begin{document}
+	\pagenumbering{gobble}
+	\begin{center}
+		\bfseries{{\huge A study on}\\[.5cm]{\huge Numerical Methods {\huge and}}\\[.5cm] {\huge their implementation using Python}}
+		
+		\vspace{2cm}
+		\emph{\large Submitted to\\
+			the University of Kerala\\
+			in partial fulfillment of the requirements for the\\[10pt]
+			Degree of Bachelor of Science in Mathematics}\\[0.75cm]
+		\emph{\Large by}\\[1.5cm]
+		\large
+		\begin{tabular}{rrr} 
+			
+			Abhiram A&-&22020144001 \\ 
+			Adila A&-&22020144002\\ 
+			Akshay R&-&22020144004\\
+			Amal Suresh&-&22020144005\\
+			Amrutharaj M&-&22020144006\\
+		\end{tabular}\\[1cm]
+		\bigskip 
+		
+		\vfill
+		University of Kerala\\
+		Thiruvananthapuram
+		
+		\vfill
+		\Large 2023
+	\end{center}
+	\newpage
+	
+	\noindent$\dots \dots \dots \dots \dots \dots \dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots$
+	
+	\vspace{5cm}
+	\begin{center}
+		\bfseries\Large\underline{DECLARATION}
+	\end{center}
+	\vspace{1cm}
+	We hereby declare that this project entitled \textbf{"A study on Numerical Methods and their implementation using Python"} has not been submitted by us for the award of any Degree, Diploma, Title or Recognition before.
+	
+	
+	\begin{flushright}
+		\begin{tabular}{rc} 
+			Name& Signature\\[0.3cm]
+			Abhiram A&\\[0.3cm]
+			Adila A&\\[0.3cm]
+			Akshay R&\\[0.3cm]
+			Amal Suresh&\\[0.3cm]
+			Amrutharaj M& \\
+		\end{tabular}\\[1cm]
+	\end{flushright}
+	Thiruvananthapuram\\ 
+	09-05-2023
+	\newpage
+	
+	\noindent$\dots \dots \dots \dots \dots \dots \dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots$
+	
+	\vspace{5cm}
+	\begin{center}
+		\bfseries\Large\underline{CERTIFICATE}
+	\end{center}
+	\vspace{1cm}
+	
+	I do hereby declare that this dissertation entitled \textbf{"A study on Numerical Methods and their implementation using Python"} is submitted by \textbf{Abhiram A, Adila A, Akshay R, Amal Suresh, Amrutharaj M } to University college, Thiruvananthapuram towards partial requirement of \textbf{Degree in Bachelor of Science} in Mathematics has been carried out by them under my supervision and that it has not been submitted elsewhere for the award of any degree.\\[1.5cm]
+	\begin{flushleft}
+	Thiruvananthapuram\\09-05-2023
+	\hfill
+	(Dr.Jijoy Joseph)
+ \end{flushleft}
+\hfill
+Project Supervisor  
+\newpage 
+\noindent$\dots \dots \dots \dots \dots \dots \dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots\dots \dots \dots \dots \dots \dots$
+
+\vspace{4cm}
+\begin{center}
+	\bfseries\Large\underline{ACKNOWLEDGMENT}
+\end{center}
+
+\vspace{10pt}
+\hspace{20pt} We thank God for completion of the project and express our deep sense of overwhelming gratitude to \textbf{Dr. Santhosh Kumar K R}, Head of our Department. We wish to express our heartfelt gratitude and indebtedness to our supervisor \textbf{Dr. Jijoy Joseph} for his expert guidance and constant help preparing the project. 
+We are specially indebted to the Principal, other faculties and library assistant of the Department of Mathematics for the timely help. Our thanks are also due to all our friends and relatives who helped us, in one way or other to complete this work. Finally our thanks to my colleagues who were ever ready with helping hands.\\[0.5cm]
+\begin{flushright}
+	\begin{tabular}{l}Abhiram A\\ Adila A\\ Akshay R\\ Amal Suresh \\ Amrutharaj M
+\end{tabular} \end{flushright}
+
+
+\newpage
+\tableofcontents
+\frontmatter
+\pagenumbering{arabic}
+\chapter{Introduction}
+
+
+
+\noindent Numerical Analysis is the study of algorithms that use numerical approximations for mathematical problems. In numerical analysis, a numerical method
+is a mathematical tool designed to solve such problems. They attempt at finding approximate solutions to mathematical problems rather
+than exact ones. We use them at places where it is difficult or impossible to use traditional mathematical methods (for example, finding roots of a polynomial
+of degree greater than 4). Numerical analysis finds application in all fields of engineering, physical sciences, life and social sciences, medicine, business etc. Current growth in computing power has enabled the use of more complex numerical methods, providing detailed and realistic mathematical models in science and engineering. \\
+The implementation of a numerical method with an appropriate convergence check is called a numerical algorithm. Here, we attempt at discussing some common numerical methods and their implementation using the programming language Python. Python is an interpreted, object-oriented, high-level programming language with dynamic semantics developed by Guido van Rossum in 1991. Python is a beginner-friendly, most widely used introductory language due to its high compatibility and simple syntax. Moreover, Python's math specific modules like NumPy, SciPy and Matplotlib makes it one of the best choices for numerical programming.
+
+\section{Organisation of the Thesis}
+In the first chapter, we discuss how to find the solutions of algebraic and transcendental equations using numerical methods like bisection, iteration and Newton-Raphson method, and  find the roots of equations, implementing all three methods using Python. In chapter two, we talk about the solution to differential equations using Picard’s method, Euler's method and Runge-Kutta Methods. Solving an Initial Value Problem using Python program for Euler's method and Runge-Kutta method is also discussed. Finally, we introduce interpolation using Newton's formulae and Central Difference Interpolation formulae in chapter 3, including simple interpolations using Newton's Forward Difference Formula and Gauss' Forward Formula in Python.
+\chapter{Prerequisites}
+\begin{enumerate}
+	\item \textbf{\textit{Intermediate Value Theorem}}: The intermediate value theorem states that if $f$ is a continuous function whose domain contains the interval $[a, b]$, then it takes on any given value between $f(a)$ and $f(b)$ at some point within the interval.
+	\item \textbf{\textit{Mean Value Theorem}}:	Suppose $f(x)$ is a function that satisfies the conditions;\begin{enumerate}
+		\item $f(x)$ is Continuous in $[a, b]$
+		\item $f(x)$ is Differentiable in $(a, b)$
+	\end{enumerate}
+	Then, there exists a number $c$, such that $a<c<b$ and
+	$$f(b)-f(a)=f'(c)(b-a)$$
+	\item\textbf{\textit{Ordinary Differential Equations}}: A differential equation is an equation that contains one or more functions with its derivatives. An ordinary differential equation (ODE) contains only one independent variable and one or more of its derivatives with respect to the variable.
+	\item \textbf{\textit{Polynomial}}: In mathematics, a polynomial is an expression consisting of indeterminates (also called variables) and coefficients, that involves only the operations of addition, subtraction, multiplication, and positive-integer powers of variables.
+	\item \textbf{\textit{Roots of a Polynomial}}: The roots of a polynomial are those values of the variable that cause the polynomial to evaluate to zero.
+	\item \textbf{\textit{Taylor Series}}: The Taylor series of a real or complex-valued function $f(x)$ that is infinitely differentiable at a real or complex number $a$ is the power series
+	$$f(x)=f(a)+\frac{f^{\prime}(a)}{1 !}(x-a)+\frac{f^{\prime \prime}(a)}{2 !}(x-a)^2+\frac{f^{\prime \prime \prime}(a)}{3 !}(x-a)^3+\cdots
+	$$
+	\item \textbf{\textit{Transcendental Equations }}: A transcendental equation is an equation over the real (or complex) numbers that is not algebraic, that is, if at least one of its sides describes a transcendental function.
+	\item \textbf{\textit{Trapezoidal Rule}}: In calculus, the trapezoidal rule is a technique for approximating the definite integral as the area of a trapezoid.
+	$$
+	\int_a^b f(x) d x \approx(b-a) \cdot \frac{1}{2}(f(a)+f(b)) .
+	$$
+\end{enumerate}
+\mainmatter
+\pagestyle{plain}
+\pagenumbering{arabic}
+\chapter{Solution of Algebraic and Transcendental Equations}
+A polynomial equation of the form $$ f(x)=p_{\mathrm{n}}(x)=a_0 x^{\mathrm{n}}+a_1 x^{\mathrm{n}-1}+a_2 x^{\mathrm{n}-2}+\ldots+a_{\mathrm{n}-1} x+a_{\mathrm{n}}=0 $$ is called an Algebraic equation. For example $x^4-4 x^2+5=0,\quad 4 x^2-5 x+7=0 ;\quad 2 x^3-5 x^2+7 x+5=0$ are algebraic equations. \\
+An equation which contains trigonometric functions, logarithmic functions, exponential functions etc., is called a Transcendental equation. For example, $$ \tan x-e^x=0 ; \quad  \sin x-x \mathrm{e}^{2 x}=0 ; \quad x \mathrm{e}^x=\cos x $$ are transcendental equations. Finding the roots or zeros of an equation of the form $f(x)=0$ is an important problem in science and engineering. We assume that $f(x)$ is continuous in the required interval. A root of an equation $f(x)=0$ is the value of $x$, say $x=\alpha$ for which $f(\alpha)=0$. Geometrically, a root of an equation $f(x)=0$ is the value of $x$ at which the graph of the equation $y=f(x)$ intersects the $x$ - axis .\\
+
+\begin{center}
+	\textbf{Fig} Geometric interpretation of a root of $f(x)=0$
+\end{center} 
+A number $\alpha$ is a simple root of $f(x)=0$; if $f(\alpha)=0$ and $f^{\prime}(\alpha) \neq 0$. Then, we can write $f(x)$ as $$ f(x)=(x-\alpha) g(x);\quad g(\alpha) \neq 0 $$ A number $\alpha$ is a multiple root of multiplicity $\mathrm{m}$ of $f(x)=0$, if $f(\alpha)=f^1(\alpha)=\ldots . f^{(\mathrm{m}-1)}(\alpha)=0$ and $\quad f^m(\alpha)=0$. Then, $f(x)$ can be written as, $$ f(x)=(x-\alpha)^{\mathrm{m}} g(x);\quad g(\alpha) \neq 0 $$\\
+A polynomial equation of degree $\mathrm{n}$ will have exactly $\mathrm{n}$ roots, real or complex, simple or multiple. A transcendental equation may have one root or no root or infinite number of roots depending on the form of $f(x)$. \\ The methods of finding the roots of $f(x)=0$ are classified as ,\\
+1. Direct Methods\\ 2. Numerical Methods. \\ 
+Direct methods give the exact values of all the roots in a finite number of steps. Numerical methods are based on the idea of successive approximations. In these methods, we start with one or two initial approximations to the root and obtain a sequence of approximations $x_0, x_1$ $\ldots x_{\mathrm{k}}$ which in the limit as $\mathrm{k} \rightarrow \infty$ converge to the exact root $x=a$.\\ 
+There are no direct methods for solving higher degree algebraic equations or transcendental equations. Such equations can be approximated by Numerical methods. In these methods, we first find an interval in which the root lies. If $\mathrm{a}$ and $\mathrm{b}$ are two numbers such that $f(a)$ and $f(b)$ have opposite signs, then a root of $f(x)=0$ lies in between $a$ and $b$. We take $a$ or $b$ or any valve in between $a$ or $b$ as the first approximation $x_1$. This is further improved by numerical methods. Here we discuss a few important numerical methods to find a root of $f(x)$.
+
+\section{Bisection Method}
+Using the corollary of Intermediate value theorem:\textit{ If a function $f(x)$ is continuous 
+	between $a$ and $b$, and $f(a)$ and $f(b)$ are of opposite signs, 
+	then there exists at least one root between a and b} ,and we approximate the root by $x_0=(a+b)/2$. If $f(x_0)=0$
+we conclude that $x_0$  is is a root of the equation $f(x_0)=0$. Otherwise the root lies between $x_0$ and  $b$ or between $x_0$  and $a$ depending on whether $f(x_0)$ is positive
+or negative.\\
+The method is shown graphically in the figure below:
+
+
+\noindent This method can be easily programmed using the following computational steps :
+\begin{enumerate}
+	\item Choose two real numbers a and b such that $f(a)f(b)<0$\\
+	\item Set $X_r=(a+b)/2$ \\
+	\item 
+	\begin{itemize}
+		\item If $f(a)f(x_r)<0$,the root lies in the interval (a,$x_r$). Then ,set b=$x_r$ and go to step 2 above.\\
+		\item If $f(a)f(x_r)>0$ ,the root lies in the interval ($x_r$,b). Then,set $a=x_r$ and go to step 2 .\\ 
+		\item If $f(a)f(x_r)=0$, it means that $x_r$ is a root of the equation $f(x)=0$ and the computation may be terminated
+	\end{itemize}
+\end{enumerate}
+\textbf{Example.} Find a real root of the equation $f(x)=x^3-x-1=0$.\\
+Since $f(1)$ is negative and $f(2)$ positive. a root lies between 1 and 2 and therefore we take $x_0=3 / 2$. Then\\ \begin{center}
+	$f\left(x_0\right)=\frac{27}{8}-\frac{3}{2}=\frac{15}{8}$, which is positive.\end{center}   
+Hence the root lies between 1 and 1.5 and we obtain $$ x_1=\frac{1+1.5}{2}=1.25 $$ We find $f\left(x_1\right)=-19/64$. which is negative. We therefore conclude that the root lies between 1.25 and 1.5 if follows that $$ x_2=\frac{1.25+1.5}{2}=1.375 $$ The procedure is repeated and the successive approximations are $$ x_3=1.3125 , \quad x_4=1.34375, \quad x_5=1.328125, \text { etc. } $$\\
+Using Python,\\
+\textbf{Program:}\\
+\begin{lstlisting}
+	def f(x):
+		return x*x*x - x - 1
+	def bisection(a,b):
+		if (f(a) * f(b) >= 0):
+			print("Wrong assumption")
+			return
+		while (b-a) >= 0.01:
+			c = (a+b)/2
+			if f(c) == 0.0:
+				break
+			if f(c)*f(a) < 0:
+				b = c
+			else:
+				a = c
+		print("root : ","%.6f"%c)
+	a=1
+	b=2
+	print(bisection(a,b))
+\end{lstlisting}
+\textbf{Output:}
+\begin{verbatim}
+	root :  1.320312
+	>
+\end{verbatim}
+\section{Iteration Method}
+This method is used to find an approximate solution to algebraic and transcendental equations, using one starting value of $x$. Suppose we have an equation $f(x)=0$ for which we have to find the solution.\\
+We rewrite $f(x)=0$, in the form \begin{equation}
+	x=\phi(x)
+\end{equation} We can do this in several ways. For example, the equation $x^3+x^2-1=0$ can be expressed as either of the forms: $$ \begin{aligned} & x=(1+x)^{\frac{-1}{2}} \\ & x=\left(1-x^3\right)^{1 / 2} \\ & x=\left(1-x^2\right)^{1 / 3} \end{aligned} $$ and so on.\\
+Let $x_0$ be an approximation to the desired $\operatorname{root} \xi$, which we can find graphically or otherwise. Substituting $x_0$ in the right side of Eq.(1.1),  we get the first approximation as $$ x_1=\phi\left(x_0\right) $$ The successive approximations are given by $$ \begin{aligned} & x_2=\phi\left(x_1\right) \\ & x_3=\phi\left(x_2\right)\\&\cdot 
+	\\ \cdot 
+	\\ \cdot \\ & x_{\mathrm{n}}=\phi\left(x_{\mathrm{n}-1}\right) \end{aligned} $$ 
+\textbf{Theorem}\\ Let $x=\xi$ be a root of $f(x)=0$ and let $I$ be an interval containing the point $x=\xi$. Let $\phi(x)$ and $\phi 'x$ be continuous in I, where $\phi(x)$ is defined by the equation $x=\phi(x)$ which is equivalent to $f(x)=0$. Then the sequence of approximations $x_0, x_1, x_2 \ldots x_{\mathrm{n}}$ converges to the root $\xi$ in a interval I, if $\left|\phi^{\prime}(x)\right|<1$ for all $x$ in I, provided that the initial approximation $x_0$ is chosen in I\\ [0.3cm]
+Hence, upon careful selection of the initial approximation according to the above theorem, our sequence of approximations converge to the solution of the equation.
+
+\noindent
+\textbf{Example.} Using the method of iteration find a positive root between 0 and 1 of the equation $$ x \mathrm{e}^x=1 $$
+\textbf{Solution.}
+The given equation can be written as $$x=\mathrm{e}^{-x}$$
+$$\therefore \phi(x)=\mathrm{e}^{-x}$$
+	 Here $\left|\phi^{\prime}(x)\right|<1$ for $x<1$. 
+	 $\therefore$ We can use iterative method.\\
+	\noindent
+\textbf{Program:}
+\begin{lstlisting}
+import math
+def f(x):
+	return x*math.exp(x)-1
+def g(x):
+	return math.exp(-x)
+def Iteration(x0):
+	step = 1
+	condition=True
+	while condition:
+		x1 = g(x0)
+		print('x1 = %0.8f f(x1) = %0.4f'
+		 % (x1, f(x1)))
+		x0 = x1
+		step = step + 1
+		if step > 20:
+			break
+		condition = abs(f(x1)) > 0
+x0=1
+Iteration(x0)
+\end{lstlisting}
+\textbf{Output:}
+\begin{verbatim}
+	x1 = 0.36787944 f(x1) = -0.4685
+	x1 = 0.69220063 f(x1) = 0.3831
+	x1 = 0.50047350 f(x1) = -0.1745
+	x1 = 0.60624354 f(x1) = 0.1116
+	x1 = 0.54539579 f(x1) = -0.0590
+	x1 = 0.57961234 f(x1) = 0.0348
+	x1 = 0.56011546 f(x1) = -0.0193
+	x1 = 0.57114312 f(x1) = 0.0111
+	x1 = 0.56487935 f(x1) = -0.0062
+	x1 = 0.56842873 f(x1) = 0.0036
+	x1 = 0.56641473 f(x1) = -0.0020
+	x1 = 0.56755664 f(x1) = 0.0011
+	x1 = 0.56690891 f(x1) = -0.0006
+	x1 = 0.56727623 f(x1) = 0.0004
+	x1 = 0.56706790 f(x1) = -0.0002
+	x1 = 0.56718605 f(x1) = 0.0001
+	x1 = 0.56711904 f(x1) = -0.0001
+	x1 = 0.56715704 f(x1) = 0.0000
+	x1 = 0.56713549 f(x1) = -0.0000
+	x1 = 0.56714771 f(x1) = 0.0000
+	>
+\end{verbatim}
+ Hence, we get the approximate root, $x=$\textbf{0.5671}.\\
+\section{Newton Raphson Method}
+\noindent 
+This method is generally used to improve the result obtained by one of the previous methods. Let $x_0$ be an  approximate root of $f(x)=0$ and let $x_1=x_0+h$ be the correct root so that $f\left(x_1\right)=0$. Expanding $f\left(x_0+h\right)$ by Taylor's series, we obtain $$ f\left(x_0\right)+h f^{\prime}\left(x_0\right)+\frac{h^2}{2 !} f^{\prime \prime}\left(x_0\right)+.....=0 . $$ Neglecting the second- and higher-order derivatives, we have \begin{eqnarray*}{r} f\left(x_0\right)+h f^{\prime}\left(x_0\right)&=&0 , \\h&=&-\frac{f\left(x_0\right)}{f^{\prime}\left(x_0\right)} \end{eqnarray*}\\A better approximation than $x_0$ is therefore given by $x_1$, Where $$ x_1=x_0-\frac{f\left(x_0\right)}{f^{\prime}\left(x_0\right)} $$ Successive approximations are given by $x_2, x_3$, , ,$x_{n+1}$ where $$ x_{n+1}=x_n-\frac{f\left(x_n\right)}{f^{\prime}\left(x_n\right)} . $$ which is the Newton-Raphson formula.\\ 
+Geometrically, the method consists in replacing the part of the curve between the points [$x_0,f(x_0)$] and the $x$-axis by means of the tangent to the curve at the point. The graphical representation is as follows 
+\begin{center}
+
+\end{center}
+\noindent
+{\bfseries Example.}
+What is the value of the function $(x-1)(x-2)^2$ at its maxima?
+\\[0.3cm]
+
+\noindent \textbf{Solution.} We have, $f(x)=(x-1)(x-2)^2=x^3-5x^2+8x-4$\\
+Now $f'(x) = 3x^2-10x+8$. Maxima occurs where $f'(x)=0$. 
+Using Newton-Raphson method to find the root of $f'(x)$, with the initial guess, $x_0=1$,
+\\[0.3cm]
+\noindent\textbf{Program:}\\
+\begin{lstlisting}[language=Python]
+	def f(a):
+		f=3*a**2-10*a+8
+		return f
+	def fprime(a):
+		g=6*a-10
+		return g
+	def nr(a):
+		h=f(a)/fprime(a)
+		while abs(h)>0.0001:
+			h=f(a)/fprime(a)
+			print (a-h)
+			a=a-h
+		print("root=",a)
+	x_0=1
+	print(nr(x_0))
+\end{lstlisting}
+\textbf{Output:}
+\begin{verbatim}
+	1.25
+	1.325
+	1.333231707317073       
+	1.333333317846284       
+	1.3333333333333333      
+	root= 1.3333333333333333
+	>
+\end{verbatim}
+We can use the same method to find the other root, at $x=2$. Evaluating the function at these points, we obtain the maximum value, $f(x)=$\textbf{0.0489} at $x=1.33$. \\
+
+
+\noindent
+\textbf{\large Pros and Cons}\\
+Bisection is a "sure, but lengthy" method. The convergence is guaranteed, and errors can be easily managed by increasing the number of iterations. Although the bisection method is simple and straightforward, its also quite slow. The rate of convergence is linear, and its impossible to find complex roots. This method cannot be applied to some equations like $f(x)=x^2$.\\
+Iteration Method require less calculation and are much faster than direct methods. They converge rapidly, but the result depends greatly on the initial assumption. \\
+Newton-Raphson is one of the fastest methods, which converges quadratically. The main drawbacks of this method are its dependence to the initial guess, and the need to calculate the derivative. Sometimes, division by zero error may occur. 
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Numerical Solution of Ordinary Differential Equations}
+Many problems in science and engineering can be reduced to the problem of solving differential equations satisfying certain given conditions. Applications of differential equations include the problems involving exponential growth, Newton's law of cooling etc.. The analytical methods of solution can be applied to solve only a selected class of differential equations.\\
+To describe various numerical methods for the solution of ordinary differential equations, we consider the general first order equation
+\begin{equation}\label{eq2.1}\dfrac{dy}{dx}=f(x,y)\end{equation}
+with initial condition,
+$$y(x_0)=y_o$$
+and illustrate the theory with respect to the equation. The method so developed can, in general, be applied to the solution of systems of first order equations, and will yield solution in one of two forms:
+\begin{enumerate}
+	\item A series for $y$ in terms of powers of $x$, from which the value of $y$ can be obtained by direct substitution.
+	\item A set of tabulated values of $x$ and $y$.
+\end{enumerate}
+Picard's method belongs to class 1, whereas Euler and Runge-Kutta belong to class 2.
+\section{Picard's method of Successive Approximations}
+Integrating the differential equation given in \ref{eq2.1},we obtain
+\begin{equation}\label{a}y=y_0 + \int \limits_{x_0}^x f(x,y_0) dx \end{equation}
+Equation (\ref{a}), in which the unknown function $y$ appears under the integral sign, is called an $integral$ $equation$. Such an equation can be solved by the method of successive approximations  in which the first approximation to $y$ is obtained by putting $y_0$ for $y$ on the right side  of eq. (\ref{a}),and we write 
+\begin{equation*} y^{(1)}=y_0 + \int\limits_{x_0}^x f(x,y_0) dx \end{equation*}
+The integral on the right can now be solved and resulting $y^{(1)}$ is substituted for $y$ in the integrand of Eq.\ref{a}, to obtain the second approximation $y^{(2)}$:
+\begin{equation*} y^{(2)}=y_0 + \int\limits_{x_0}^x f(x,y^{(1)}) dx \end{equation*}
+proceeding in this way, we obtain $y^{(3)},y^{(4)},...y^{(n-1)}$ and $y^{(n)}$, where
+\begin{equation} y^{(n)}=y_0 + \int\limits_{x_0}^x f(x,y^{(n-1)}) dx \end{equation}
+with $y^{(0)}=y_0$
+Hence this method yields a sequence of approximations $y^{(1)},y^{(2)}...y^{(n)}$. If the function $f(x,y)$ is bounded in some region about the point $(x_0,y_0)$ and if $f(x,y)$ satisfies the $Lipschitz$ $condition$ viz.,
+\begin{equation}
+	|f(x,y)-f(x,\bar{y})|\leq K|y-\bar{y}|
+\end{equation}
+then the sequence $y^{(1)},y^{(2)},...$ converges to the solution of (\ref{eq2.1}).\\
+\textbf{Example:}\vspace{.3cm}
+Solve the equation $y^{\prime}=x+y^2$, subject to the condition $y=1$ when $x=0$.\\ We start with $y^{(0)}=1$ and obtain \\$$ y^{(1)}=1+\int_0^x(x+1) d x=1+x+\frac{1}{2} x^2 . $$ \\Then the second approximation is $$ \begin{aligned} y^{(2)} & =1+\int_0^x\left[x+\left(1+x+\frac{1}{2} x^2\right)^2\right] d x \\ \vspace{.3cm}& =1+x+\frac{3}{2} x^2+\frac{2}{3} x^3+\frac{1}{4} x^4+\frac{1}{20} x^5 . \end{aligned} $$ It is obvious that the integrations might become more and more difficult as we proceed to higher approximations.\\
+\section{Euler's method}
+Suppose that we wish to solve the equation Eq.(\ref{eq2.1}) for values of $y$ at $x=x_r=x_0+rh $ $(r=1,2,...)$. Integrating Eq.(\ref{eq2.1}), we obtain
+\begin{equation}\label{b}
+	y_{1}=y_0 + \int\limits_{x_0}^{x_1} f(x,y) dx
+\end{equation}
+assuming that $f(x,y)=f(x_0,y_0)$ in $x_0\leq x\leq x_1$, this gives Euler's formula
+Similarly, for the range $x_1\leq x\leq x_2$, we have
+\begin{equation}
+	y_{2}=y_1 + \int\limits_{x_1}^{x_2}f(x,y) dx
+\end{equation}
+Substituting $f(x_1,y_1)$ for $f(x,y)$ in $x_1\leq x\leq x_2$, we obtain 
+\begin{equation}
+	y_2\approx y_1+hf(x_1,y_1)
+\end{equation}
+Proceeding in this way, we obtain the general formula
+\begin{equation}
+	y_{n+1}= y_n+hf(x_n,y_n), n=0,1,2,3,..
+\end{equation}
+\textbf{Example:}\\
+\vspace{.3cm}To illustrate Euler's method, we consider the differential equation \\$y^{\prime}=-y$ with the condition $y(0)=1$. \\Successive application of Eq. (2.8) with $h=0.01$ gives $$ \begin{aligned} & y(0.01)=1+0.1(-1)=0.99 \\ & y(0.02)=0.99+0.01(-0.99)=0.9801 \\ & y(0.03)=0.9801+0.01(-0.9801)=0.9703 \\ & y(0.04)=0.9703+0.01(-0.9703)=0.9606 . \end{aligned} $$ The exact solution is $y=e^{-x}$ and from this the value at $x=0.04$ is 0.9608 .
+\subsection{Error Estimates for the Euler's Method}
+Let the true solution of the differential equation at $x=x_n$ be $y\left(x_n\right)$ and also let the approximate solution be $y_n$. Now, expanding $y\left(x_{n+1}\right)$ by Taylor's series, we get
+$$
+\begin{aligned}
+	y\left(x_{n+1}\right) & =y\left(x_n\right)+h y\left(x_n\right)+\frac{h^2}{2} y^{\prime \prime}\left(x_n\right)+\cdots \\
+	& =y\left(x_n\right)+h y\left(x_n\right)+\frac{h^2}{2} y^{\prime \prime}\left(\tau_n\right), \quad \text { where } x_n \leq \tau_n \leq x_{n+1} \text {. }
+\end{aligned}
+$$
+We usually encounter two types of errors in the solution of differential equations. These are (i) local errors, and (ii) rounding errors. The local error is the result of replacing the given differential equation by means of the equation
+$$
+y_{n+1}=y_n+h y_n^{\prime} .
+$$
+This error is given by
+$$
+L_{n+1}=-\frac{1}{2} h^2 y^{\prime \prime}\left(\tau_n\right)
+$$
+The total error is then defined by
+$$
+e_n=y_n-y\left(x_n\right)
+$$
+Since $y_0$ is exact, it follows that $e_0=0$.
+Neglecting the rounding error, we write the total solution error as
+$$
+\begin{aligned}
+	\mathrm{e}_{n+1} & =y_{n+1}-y\left(x_{n+1}\right) \\
+	& =y_n+h y_n^{\prime}-\left[y\left(x_n\right)+h y^{\prime}\left(x_n\right)-L_{n+1}\right] \\
+	& =e_n+h\left[f\left(x_n, y_n\right)-y^{\prime}\left(x_n\right)\right]+L_{n+1} .
+\end{aligned}
+$$
+$$
+\Rightarrow \quad e_{n+1}=e_n+h\left[f\left(x_n, y_n\right)-f\left(x_n, y\left(x_n\right)\right)\right]+L_{n+1} \text {. }
+$$
+By mean value theorem, we write
+$$
+f\left(x_n, y_n\right)-f\left(x_n, y\left(x_n\right)\right)=\left[y_n-y\left(x_n\right)\right] \frac{\partial f}{\partial y}\left(x_n, \xi_n\right), \quad y\left(x_n\right) \leq \xi_n \leq y_n .
+$$
+Hence, we have
+$$
+e_{n+1}=e_n\left[1+h f_y\left(x_n, \xi_n\right)\right]+L_{n+1}
+$$
+Since $e_0=0$, we obtain successively:
+$$
+\begin{array}{c}
+	e_1=L_1 ; \quad e_2=\left[1+h f_y\left(x_1, \xi_1\right)\right] L_1+L_2 ; \\
+	e_3=\left[1+h f_y\left(x_2, \xi_2\right)\right]\left[1+h f_y\left(x_1, \xi_1\right)\right]\left(L_1+L_2\right)+L_3 ; \text { etc. }
+\end{array}
+$$
+\subsection{Modified Euler's Method}
+Instead of approximating $f(x, y)$ by $f\left(x_0, y_0\right)$ in Eq.\ref{b}, we now approximate the integral given in Eq. \ref{b} by means of trapezoidal rule to obtain 
+\begin{equation}\label{c}
+	y_1=y_0+\frac{h}{2}\left[f\left(x_0, y_0\right)+f\left(x_1, y_1\right)\right]
+\end{equation}
+We thus obtain the iteration formula
+$$
+y_1^{(n+1)}=y_0+\frac{h}{2}\left[f\left(x_0, y_0\right)+f\left(x_1, y_1^{(n)}\right)\right], \quad n=0,1,2, \ldots
+$$
+where $y_1^{(n)}$ is the $n$th approximation to $y_1$. The iteration formula (8.14) can be started by choosing $y_1^{(0)}$ from Euler's formula:
+$$
+y_1^{(0)}=y_0+h f\left(x_0, y_0\right)
+$$
+\textbf{Example}\\
+\vspace{.2cm}Determine the value of $y$ when $x=0.1$ given that $$ y(0)=1 \quad \text { and } \quad y^{\prime}=x^2+y $$ We take $h=0.05$. With $x_0=0$ and $y_0=1.0$, we have $f\left(x_0, y_0\right)=1.0$. Hence Euler's formula gives $$ y_1^{(0)}=1+0.05(1)=1.05 $$ Further, $x_1=0.05$ and $f\left(x_1, y_1^{(0)}\right)=1.0525$. The average of $f\left(x_0, y_0\right)$ and $f\left(x_1, y_1^{(0)}\right)$ is 1.0262 . The value of $y_1^{(1)}$ can therefore be computed by using Eq. (8.14) and we obtain $$ y_1^{(1)}=1.0513 \text {. } $$ Repeating the procedure, we obtain $y_1^{(2)}=1.0513$. Hence we take $y_1=1.0513$, which is correct to four decimal places. Next, with $x_1=0.05, y_1=1.0513$ and $h=0.05$, we continue the procedure to obtain $y_2$, i.e., the value of $y$ when $x=0.1$. The results are $$ y_2^{(0)}=1.1040, \quad y_2^{(1)}=1.1055, \quad y_2^{(2)}=1.1055 . $$ Hence we conclude that the value of $y$ when $x=0.1$ is 1.1055 .\\ \vspace{.2cm}
+
+\noindent\textbf{Example.}\\
+Find $y(1)$ if $\dfrac{dy}{dx}=x+y$ and $y(0)=1$.\\[0.3cm]
+\textbf{Solution.}\\
+Using Euler's Method,\\
+\texttt{Program:}
+\begin{lstlisting}[language=Python]
+def f(x,y):
+	return x+y
+def euler(x0,y0,xn,n):
+  h = (xn-x0)/n
+  for i in range(n):
+	slope = f(x0, y0)
+	yn = y0 + h * slope
+  	print('%.4f\t%.4f\t%0.4f\t%.4f'% (x0,y0,slope,yn)
+  	y0 = yn
+  	x0 = x0+h
+print('\n At x=%f, y=%f' %(xn,yn))
+x0=0
+y0=1
+xn=1
+print(euler(x0,y0,xn,10))
+\end{lstlisting}
+\textbf{Output:}
+\begin{verbatim}
+	0.0000  1.0000                                                                          1.0000   1.1000
+	0.1000  1.1000                                                                          1.2000   1.2200
+	0.2000  1.2200                                                                          1.4200   1.3620
+	0.3000  1.3620                                                                          1.6620   1.5282
+	0.4000  1.5282                                                                          1.9282   1.7210
+	0.5000  1.7210                                                                          2.2210   1.9431
+	0.6000  1.9431                                                                          2.5431   2.1974
+	0.7000  2.1974                                                                          2.8974   2.4872
+	0.8000  2.4872                                                                          3.2872   2.8159
+	0.9000  2.8159                                                                          3.7159   3.1875
+	
+	At x=1.0000, y=3.1875
+\end{verbatim}
+Hence \textbf{y(1)=3.1875}
+\section{Runge-Kutta Methods}
+Euler's method is less efficient in practical problems since it requires $h$ to be small for obtaining reasonable accuracy. The Runge-Kutta methods are designed to give greater accuracy and they possess the advantage of requiring only the function values at some selected points on the sub-interval. If we substitute $y_1=y_0+h f\left(x_0, y_0\right)$ on the right side of Eq. (\ref{c}), we obtain
+$$
+y_1=y_0+\frac{h}{2}\left[f_0+f\left(x_0+h, y_0+h f_0\right)\right]
+$$
+where $f_0=f\left(x_0, y_0\right)$. If we now set
+$$
+k_1=h f_0 \quad \text { and } \quad k_2=h f\left(x_0+h, y_0+k_1\right)
+$$
+then the above equation becomes
+\begin{equation}\label{d}
+	y_1=y_0+\frac{1}{2}\left(k_1+k_2\right)
+\end{equation}
+which is the second-order Runge-Kutta formula. The error in this formula can be shown to be of order $h^3$ by expanding both sides by Taylor's series. Thus, the left side gives
+$$
+y_0+h y_0^{\prime}+\frac{h^2}{2} y_0^{\prime \prime}+\frac{h^3}{6} y_0^{\prime \prime}+\cdots
+$$
+and on the right side
+$$
+k_2=h f\left(x_0+h, y_0+h f_0\right)=h\left[f_0+h \frac{\partial f}{\partial x_0}+h f_0 \frac{\partial f}{\partial y_0}+\mathrm{O}\left(h^2\right)\right] .
+$$
+Since
+$$
+\frac{d f(x, y)}{d x}=\frac{\partial f}{\partial x}+f \frac{\partial f}{\partial y}
+$$
+we obtain
+$$
+k_2=h\left[f_0+h f_0^{\prime}+\mathrm{O}\left(h^2\right)\right]=h f_0+h^2 f_0^{\prime}+\mathrm{O}\left(h^3\right)
+$$
+so that the right side of Eq. (2.10) gives
+$$
+\begin{aligned}
+	y_0+\frac{1}{2}\left[h f_0+h f_0+h^2 f_0^{\prime}+\mathrm{O}\left(h^3\right)\right] & =y_0+h f_0+\frac{1}{2} h^2 f_0^{\prime}+\mathrm{O}\left(h^3\right) \\
+	& =y_0+h y_0^{\prime}+\frac{h^2}{2} y_0^{\prime \prime}+\mathrm{O}\left(h^3\right) .
+\end{aligned}
+$$
+It therefore follows that the Taylor series expansions of both sides of Eq. (2.10) agree up to terms of order $h^2$, which means that the error in this formula is of order $h^3$.
+More generally, if we set
+\begin{subequations}
+	\begin{equation}
+		y_1=y_0+W_1 k_1+W_2 k_2
+	\end{equation}
+	where
+	\begin{eqnarray}
+		k_1&=&h f_0 \\
+		k_2&=&h f\left(x_0+\alpha_0 h, y_0+\beta_0 k_1\right)
+	\end{eqnarray}
+\end{subequations}
+then the Taylor series expansions of both sides of the last equation in (8.16a) gives the identity
+$$
+\begin{aligned}
+	y_0+h f_0+\frac{h^2}{2}\left(\frac{\partial f}{\partial x}+f_0 \frac{\partial f}{\partial y}\right)+\mathrm{O}\left(h^3\right)= & y_0+\left(W_1+W_2\right) h f_0 \\
+	& +W_2 h^2\left(\alpha_0 \frac{\partial f}{\partial x}+\beta_0 f_0 \frac{\partial f}{\partial y}\right)+\mathrm{O}\left(h^3\right) .
+\end{aligned}
+$$
+Equating the coefficients of $f(x, y)$ and its derivatives on both sides, we obtain the relations
+\begin{equation}
+	W_1+W_2=1, \quad W_2 \alpha_0=\frac{1}{2}, \quad W_2 \beta_0=\frac{1}{2}
+\end{equation}
+
+Clearly, $\alpha_0=\beta_0$ and if $\alpha_0$ is assigned any value arbitrarily, then the remaining parameters can be determined uniquely. If we set, for example, $\alpha_0=\beta_0=1$, then we immediately obtain $W_1=W_2=1 / 2$, which gives formula (2.10).
+It follows, therefore, that there are several second-order Runge-Kutta formulae and that formulae (2.11) and (2.12) constitute just one of several such formulae. 
+Higher-order Runge-Kutta formulae exist, of which we mention only the fourth-order formula defined by
+\begin{subequations}
+	\begin{equation}
+		y_1=y_0+W_1 k_1+W_2 k_2+W_3 k_3+W_4 k_4
+	\end{equation}
+	where
+	\begin{eqnarray}
+		k_1&=&h f\left(x_0, y_0\right) \\
+		k_2&=&h f\left(x_0+\alpha_0 h, y_0+\beta_0 k_1\right) \\
+		k_3&=&h f\left(x_0+\alpha_1 h, y_0+\beta_1 k_1+v_1 k_2\right) \\
+		k_4&=&h f\left(x_0+\alpha_2 h, y_0+\beta_2 k_1+v_2 k_2+\delta_1 k_3\right)
+	\end{eqnarray}
+\end{subequations}
+
+where the parameters have to be determined by expanding both sides of the first equation of (2.13a) by Taylor's series and securing agreement of terms up to and including those containing $h^4$. The choice of the parameters is, again, arbitrary and we have therefore several fourth-order Runge-Kutta formulae. If, for example, we set
+$$
+\begin{array}{lll}
+	\alpha_0=\beta_0=\frac{1}{2}, & \alpha_1=\frac{1}{2}, & \alpha_2=1, \\
+	\beta_1=\frac{1}{2}(\sqrt{2}-1), & \beta_2=0 \\
+	v_1=1-\frac{1}{\sqrt{2}}, & v_2=-\frac{1}{\sqrt{2}}, & \delta_1=1+\frac{1}{\sqrt{2}}, \\
+	W_1=W_4=\frac{1}{6}, & W_2=\frac{1}{3}\left(1-\frac{1}{\sqrt{2}}\right), & W_3=\frac{1}{3}\left(1+\frac{1}{\sqrt{2}}\right),
+\end{array}
+$$
+we obtain the method of Gill, whereas the choice
+$$
+\begin{array}{ll}
+	\alpha_0=\alpha_1=\frac{1}{2}, & \beta_0=v_1=\frac{1}{2} \\
+	\beta_1=\beta_2=v_2=0, & \alpha_2=\delta_1=1 \\
+	W_1=W_4=\frac{1}{6}, & W_2=W_3=\frac{2}{6}
+\end{array}
+$$
+leads to the fourth-order Runge-Kutta formula, the most commonly used one in practice:
+\begin{equation}\label{2.14}
+	y_1=y_0+\frac{1}{6}\left(k_1+2 k_2+2 k_3+k_4\right)
+\end{equation}
+where
+$$
+\begin{array}{l}
+	k_1=h f\left(x_0, y_0\right) \\
+	k_2=h f\left(x_0+\frac{1}{2} h, y_0+\frac{1}{2} k_1\right) \\
+	k_3=h f\left(x_0+\frac{1}{2} h, y_0+\frac{1}{2} k_2\right) \\
+	k_4=h f\left(x_0+h, y_0+k_3\right)
+\end{array}
+$$
+in which the error is of order $h^5$.\\[0.5cm]
+
+\noindent
+\textbf{Example.}
+$$y'=3x+\frac y2;\quad y(0)=1$$ Find $y(0.2)$.\\
+
+\noindent\textbf{Solution.} Using Eq.(\ref{2.14}),\\
+\noindent
+\textbf{Program:}
+\begin{lstlisting}
+	def diff(x,y):
+		return 3*x+y/2
+	def rungekutta(x0,y0,x,h):
+		n = int((x - x0)/h)
+		y = y0
+		for i in range(1, n + 1):
+			k1 = h * diff(x0, y)
+			k2 = h * diff(x0 + 0.5 * h, y + 0.5 * k1)
+			k3 = h * diff(x0 + 0.5 * h, y + 0.5 * k2)
+			k4 = h * diff(x0 + h, y + k3)
+			y = y + (1/6)*(k1 + 2 * k2 + 2 * k3 + k4)
+			x0 = x0 + h
+		return y
+	x0 = 0
+	y = 1
+	x = 0.2
+	h = 0.005
+	print ('y(x)=', rungekutta(x0, y, x, h))
+\end{lstlisting}
+\textbf{Output:}
+\begin{verbatim}
+	y(x)= 1.1672219349829527
+\end{verbatim}
+Hence $y(0.2)=$\textbf{ 1.1672}\\
+
+\noindent
+\textbf{\large Pros and Cons}\\
+Picard's method is straightforward and converges to a unique solution in a selected region. But the computation of this method is heavy and requires a lengthy calculation.\\
+Euler's method is simple, but is less accurate and numerically unstable. The error is proportional to the step size $h$, and using smaller step size increases accuracy but it requires more iterations and thus an unreasonably large computational time.\\
+Runge-Kutta method is very stable and accurate too, but at the cost of a larger computational time.
+
+
+
+
+\chapter{Interpolation}
+The statement
+$$
+y=f(x), \quad x_0 \leq x \leq x_n
+$$
+means: corresponding to every value of $x$ in the range $x_0 \leq x \leq x_n$, there exists one or more values of $y$. Assuming that $f(x)$ is single-valued and continuous and that it is known explicitly, then the values of $f(x)$ corresponding to certain given values of $x$, say $x_0, x_1, \ldots, x_n$ can easily be computed and tabulated. One of the central problems of numerical analysis is the converse one: Given the set of tabular values $\left(x_0, y_0\right),\left(x_1, y_1\right),\left(x_2, y_2\right), \ldots,\left(x_n, y_n\right)$ satisfying the relation $y=f(x)$ where the explicit nature of $f(x)$ is not known, it is required to find a simpler function, say $\phi(x)$, such that $f(x)$ and $\phi(x)$ agree at the set of tabulated points. Such a process is called interpolation. If $\phi(x)$ is a polynomial, then the process is called polynomial interpolation and $\phi(x)$ is called the interpolating polynomial. Similarly different types of interpolation arise depending on whether $\phi(x)$ is a trigonometric series, series of Bessel function, etc. Here, we go through different methods of polynomial interpolation, like using Newton's formulae, Gauss's formulae, etc.
+\section{Finite Differences}
+Assume that we have a table of values $\left(x_i, y_i\right), i=0,1,2, \ldots, n$ of any function $y=f(x)$, the values of $x$ being equally spaced, i.e., $x_i=x_0+i h$, $i=0,1,2, \ldots, n$. Suppose that we are required to recover the values of $f(x)$ for some intermediate values of $x$, or to obtain the derivative of $f(x)$ for some $x$ in the range $x_0 \leq x \leq x_n$. The methods for the solution to these problems are based on the concept of the 'differences' of a function which we now proceed to define.\\
+\subsection{Forward Differences}
+If $y_0, y_1, y_2, \ldots, y_n$ denote a set of values of $y$, then $y_1-y_0, y_2-y_1, \ldots$, $y_n-y_{n-1}$ are called the differences of $y$. Denoting these differences by $\Delta y_0, \Delta y_1, \ldots, \Delta y_{n-1}$ respectively, we have
+$$
+\Delta y_0=y_1-y_0, \quad \Delta y_1=y_2-y_1, \ldots, \quad \Delta y_{n-1}=y_n-y_{n-1},
+$$
+where $\Delta$ is called the forward difference operator and $\Delta y_0, \Delta y_1, \ldots$, are called first forward differences. The differences of the first forward differences are called second forward differences and are denoted by $\Delta^2 y_0, \Delta^2 y_1, \ldots$ Similarly, one can define third forward differences, fourth forward differences,etc.
+Thus,
+$$
+\begin{aligned}
+	\Delta^2 y_0=\Delta y_1-\Delta y_0 & =y_2-y_1-\left(y_1-y_0\right) \\
+	& =y_2-2 y_1+y_0, \\
+	\Delta^3 y_0=\Delta^2 y_1-\Delta^2 y_0 & =y_3-2 y_2+y_1-\left(y_2-2 y_1+y_0\right) \\
+	& =y_3-3 y_2+3 y_1-y_0 \\
+	\Delta^4 y_0=\Delta^3 y_1-\Delta^3 y_0 & =y_4-3 y_3+3 y_2-y_1-\left(y_3-3 y_2+3 y_1-y_0\right) \\
+	& =y_4-4 y_3+6 y_2-4 y_1+y_0 .
+\end{aligned}
+$$
+It is, therefore, clear that any higher-order difference can easily be expressed in terms of the ordinates, since the coefficients occurring on the right side are the binomial coefficients.
+\subsection{Backward Differences }
+The differences $y_1-y_0, y_2-y_1, \ldots, y_n-y_{n-1}$ are called first backward differences if they are denoted by $\nabla y_1, \nabla y_2, \ldots, \nabla y_n$ respectively, so that
+$$
+\begin{aligned}
+	& \nabla y_1=y_1-y_0, \quad \nabla y_2=y_2-y_1, \\
+	& \vdots \vdots \quad \vdots \quad \vdots \\
+	& \nabla y_n=y_n-y_{n-1}, \\
+	&
+\end{aligned}
+$$
+where $\nabla$ is called the backward difference operator. In a similar way, one can define backward differences of higher orders.
+Thus, we obtain
+$$
+\begin{aligned}
+	\nabla^2 y_2 & =\nabla y_2-\nabla y_1 \\
+	& =y_2-y_1-\left(y_1-y_0\right)=y_2-2 y_1+y_0 \\
+	\nabla^3 y_3 & =\nabla^2 y_3-\nabla^2 y_2 \\
+	& =y_3-3 y_2+3 y_1-y_0, \text { etc. }
+\end{aligned}
+$$\\
+\subsection{Central Differences}
+The central difference operator $\delta$ is defined by the relations
+$$
+y_1-y_0=\delta y_{1 / 2}, \quad y_2-y_1=\delta y_{3 / 2}, \ldots, \quad y_n-y_{n-1}=\delta y_{n-1 / 2} \text {. }
+$$
+Similarly, higher-order central differences can be defined.
+\section{Newton's Formulae For Interpolation }
+Given the set of $(n+1)$ values, viz., $\left(x_0, y_0\right),\left(x_1, y_1\right),\left(x_2, y_2\right), \ldots,\left(x_n, y_n\right)$, of $x$ and $y$, it is required to find $y_n(x)$, a polynomial of the $n$th degree such that $y$ and $y_n(x)$ agree at the tabulated points. Let the values of $x$ be equidistant, i.e. let
+$$
+x_i=x_0+i h, \quad i=0,1,2, \ldots, n .
+$$
+Since $y_n(x)$ is a polynomial of the $n$th degree, it may be written as
+
+
+\begin{equation}\label{3.1}
+	\left.\begin{array}{rl}
+		y_n(x)= & a_0+a_1\left(x-x_0\right)+a_2\left(x-x_0\right)\left(x-x_1\right) \\
+		& +a_3\left(x-x_0\right)\left(x-x_1\right)\left(x-x_2\right)+\cdots \\
+		& +a_n\left(x-x_0\right)\left(x-x_1\right)\left(x-x_2\right) \ldots\left(x-x_{n-1}\right)
+	\end{array}\right\}
+\end{equation}\\[0.5cm]
+
+
+Imposing now the condition that $y$ and $y_n(x)$ should agree at the set of tabulated points, we obtain
+$$
+a_0=y_0 ; a_1=\frac{y_1-y_0}{x_1-x_0}=\frac{\Delta y_0}{h} ; a_2=\frac{\Delta^2 y_0}{h^2 2 !} ; a_3=\frac{\Delta^3 y_0}{h^3 3 !} ; \cdots ; a_n=\frac{\Delta^n y_0}{h^n n !} ;
+$$
+Setting $x=x_0+p h$ and substituting for $a_0, a_1, \ldots, a_n$, Eq. (3.1) gives
+\begin{equation}\label{3.2}
+	\begin{aligned}
+		y_n(x)= & y_0+p \Delta y_0+\frac{p(p-1)}{2 !} \Delta^2 y_0+\frac{p(p-1)(p-2)}{3 !} \Delta^3 y_0+\cdots \\
+		& +\frac{p(p-1)(p-2) \ldots(p-n+1)}{n !} \Delta^n y_0,
+	\end{aligned}
+\end{equation}
+
+which is \textit{Newton's forward difference interpolation formula} and is useful for interpolation near the beginning of a set of tabular values.
+To find the error committed in replacing the function $y(x)$ by means of the polynomial $y_n(x)$, we use the error equation  to obtain
+\begin{equation}\label{3.3}
+	y(x)-y_n(x)=\frac{\left(x-x_0\right)\left(x-x_1\right) \ldots\left(x-x_n\right)}{(n+1) !} y^{(n+1)}(\xi), \quad x_0<\xi<x_n
+\end{equation}\\[0.5cm]
+As remarked earlier we do not have any information concerning $y^{(n+1)}(x)$, and therefore, formula given in Eq (3.3)  is useless in practice. Nevertheless,
+if $y^{(n+1)}(x)$ does not vary too rapidly in the interval, a useful estimate of the derivative can be obtained in the following way. Expanding $y(x+h)$ by Taylor's series we obtain
+$$
+y(x+h)=y(x)+h y^{\prime}(x)+\frac{h^2}{2 !} y^{\prime \prime}(x)+\cdots
+$$
+Neglecting the terms containing $h^2$ and higher powers of $h$, this gives
+$$
+y^{\prime}(x) \approx \frac{1}{h}[y(x+h)-y(x)]=\frac{1}{h} \Delta y(x) .
+$$
+Writing $y^{\prime}(x)$ as $D y(x)$ where $D \equiv d / d x$, the differentiation operator, the above equation gives the operator relation
+$$
+D \equiv \frac{1}{h} \Delta \quad \text { and so } \quad D^{n+1} \equiv \frac{1}{h^{n+1}} \Delta^{n+1} .
+$$
+We thus obtain
+\begin{equation}\label{3.4}
+	y^{(n+1)}(x)=\frac{1}{h^{n+1}} \Delta^{n+1} y(x)
+\end{equation}
+Eq (3.3)  can, therefore, be written as
+\begin{equation}\label{3.5}
+	y(x)-y_n(x)=\frac{p(p-1)(p-2) \ldots(p-n)}{(n+1) !} \Delta^{n+1} y(\xi)
+\end{equation}
+in which form it is suitable for computation.
+Instead of assuming $y_m(x)$ as in Eq. (3.1), if we choose it in the form
+\begin{equation}\label{3.6}
+	\begin{aligned}
+		y_n(x)= & a_0+a_1\left(x-x_n\right)+a_2\left(x-x_n\right)\left(x-x_{n-1}\right) \\
+		& +a_3\left(x-x_n\right)\left(x-x_{n-1}\right)\left(x-x_{n-2}\right)+\cdots \\
+		& +a_n\left(x-x_n\right)\left(x-x_{n-1}\right) \ldots\left(x-x_1\right) .
+	\end{aligned}
+\end{equation}
+and then impose the condition that $y$ and $y_n(x)$ should agree at the tabulated points $x_m x_{n-1}, \ldots, x_2, x_1, x_0$, we obtain (after some simplification)
+\begin{equation}\label{3.7}
+	y_n(x)=y_n+p \nabla y_n+\frac{p(p+1)}{2 !} \nabla^2 y_n+\cdots+\frac{p(p+1) \ldots(p+n-1)}{n !} \nabla^n y_n .
+\end{equation}
+The following example illustrate the use of Newton's Formulae. \\[0.4cm]
+\textbf{\textit{Example}} Using Newton's forward difference formula, find the sum
+$$
+S_n=1^3+2^3+3^3+\cdots+n^3
+$$
+We have
+$$
+S_{n+1}=1^3+2^3+3^3+\cdots+n^3+(n+1)^3
+$$
+Hence
+$$
+S_{n+1}-S_n=(n+1)^3,
+$$
+
+or
+$$
+\Delta S_n=(n+1)^3
+$$
+It follows that
+$$
+\begin{aligned}
+	& \Delta^2 S_n=\Delta S_{n+1}-\Delta S_n=(n+2)^3-(n+1)^3=3 n^2+9 n+7, \\
+	& \Delta^3 S_n=3(n+1)^2+9 n+7-\left(3 n^2+9 n+7\right)=6 n+12 \\
+	& \Delta^4 S_n=6(n+1)+12-(6 n+12)=6 .
+\end{aligned}
+$$
+Since $\Delta^5 S_n=\Delta^6 S_n=\cdots=0, S_n$ is a fourth-degree polynomial in $n$.
+Further,
+$$
+S_1=1, \quad \Delta S_1=8, \quad \Delta^2 S_1=19, \quad \Delta^3 S_1=18, \quad \Delta^4 S_1=6 .
+$$
+Equation (3.10) gives
+$$
+\begin{aligned}
+	S_n= & 1+(n-1)(8)+\frac{(n-1)(n-2)}{2}(19)+\frac{(n-1)(n-2)(n-3)}{6}(18) \\
+	& +\frac{(n-1)(n-2)(n-3)(n-4)}{24}(6) \\[0.3cm]
+	= & \frac{1}{4} n^4+\frac{1}{2} n^3+\frac{1}{4} n^2 \\[0.3cm]
+	= & {\left[\frac{n(n+1)}{2}\right]^2 . }
+\end{aligned}
+$$
+\noindent\textbf{Example.}
+The values of $x$ and $\sin x$ are given in the following table:
+$$
+\begin{array}{cl}
+	x \text { (in degrees) } & \multicolumn{1}{c}{\sin x} \\
+	\hline 15 & 0.2588190 \\
+	20 & 0.3420201 \\
+	25 & 0.4226183 \\
+	30 & 0.5 \\
+	35 & 0.5735764 \\
+	40 & 0.6427876
+\end{array}
+$$
+Find $\sin 32^\circ$.\\
+\textbf{Solution.}
+Using Newton's forward difference formula,\\
+\textbf{Program:}
+\begin{lstlisting}
+	def pcal(p, n):
+	  temp = p;
+	  for i in range(1, n):
+	    temp = temp * (p - i);
+	  return temp;
+	def factorial(n):
+	  f = 1;
+	  for i in range(2, n + 1):
+	    f *= i;
+	  return f;
+	n = 6;
+	x = [ 15,20,25,30,35,40 ];
+	y = [[0 for i in range(n)]
+	        for j in range(n)];
+	y[0][0] =  0.2588190;
+	y[1][0] =  0.3420201;
+	y[2][0] =  0.4226183;
+	y[3][0] = 0.5;
+	y[4][0] = 0.5735764 ;
+	y[5][0] = 0.6427876;
+	for i in range(1, n):
+	  for j in range(n - i):
+	    y[j][i] = y[j + 1][i - 1] - y[j][i - 1];
+	for i in range(n):
+	  print(x[i], end = "\t");
+	  for j in range(n - i):
+	    print(y[i][j], end = "\t");
+	  print("");
+	value = 32;
+	sum = y[0][0];
+	p = (value - x[0]) / (x[1] - x[0]);
+	for i in range(1,n):
+	  sum = sum + (pcal(p, i) * y[0][i]) / factorial(i);
+	print("sin 32=", round(sum, 6));
+	
+\end{lstlisting}
+\textbf{Output:}
+
+\begin{verbatim}
+	
+	15      0.258819        0.08320109999999997     -0.0026028999999999636 
+	-0.0006136000000000474  2.4800000000047007e-05  4.100000000006876e-06
+	20      0.3420201       0.08059820000000001     -0.003216500000000011  
+	-0.0005888000000000004  2.8900000000053883e-05
+	25      0.4226183       0.0773817       -0.0038053000000000115 
+	-0.0005598999999999466
+	30      0.5     0.07357639999999999     -0.004365199999999958
+	35      0.5735764       0.06921120000000003
+	40      0.6427876
+	sin 32= 0.529919
+\end{verbatim}
+Hence, $\sin 32^\circ=$\textbf{0.5299}.
+
+\section{Central Difference Interpolation Formulae }
+In the preceding section, we discussed Newton's forward and backward interpolation formulae, which are applicable for interpolation near the beginning and end respectively of the tabulated values. In this section we discuss the central difference formulae which are most suited for interpolation near the middle of a tabulated set,
+Gauss' Central Difference Formulae.\\ 
+\subsection{Gauss' Forward Formula}
+We consider the following difference table in which the central ordinate is taken for convenience as $y_0$ corresponding to $x=x_0$.\\
+The differences used in this formulae is shown in the table below. The formula is,therefore,in the form
+\begin{equation}\label{3.08}
+	y_p=y_0+G_1 \Delta y_0+G_2 \Delta^2 y_{-1}+G_3 \Delta^3 y_{-1}+G_4 \Delta^4 y_{-2}+\cdots
+\end{equation}
+where $G_1, G_2, \ldots$ have to be determined. The $y_p$ on the left side can be expressed in terms of $y_0, \Delta y_0$ and higher-order differences of $y_0$, as follows:
+
+$$
+\begin{aligned}
+	y_p & =E^p y_0 \\
+	& =(1+\Delta)^p y_0, \text { using relation  } \\
+	& =y_0+p \Delta y_0+\frac{p(p-1)}{2 !} \Delta^2 y_0+\frac{p(p-1)(p-2)}{3 !} \Delta^3 y_0+\cdots
+\end{aligned}
+$$
+Similarly, the right side of Eq. (3.08) can also be expressed in terms of $y_0, \Delta y_0$ and higher-order differences. We have
+$$
+\begin{aligned}
+	\Delta^2 y_{-1} & =\Delta^2 E^{-1} y_0 \\
+	& =\Delta^2(1+\Delta)^{-1} y_0 \\
+	& =\Delta^2\left(1-\Delta+\Delta^2-\Delta^3+\cdots\right) y_0 \\
+	& =\Delta^2\left(y_0-\Delta y_0+\Delta^2 y_0-\Delta^3 y_0+\cdots\right) \\
+	& =\Delta^2 y_0-\Delta^3 y_0+\Delta^4 y_0-\Delta^5 y_0+\cdots
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+	\Delta^3 y_{-1} & =\Delta^3 y_0-\Delta^4 y_0+\Delta^5 y_0-\Delta^6 y_0+\cdots \\
+	\Delta^4 y_{-2} & =\Delta^4 E^{-2} y_0 \\
+	& =\Delta^4(1+\Delta)^{-2} y_0 \\
+	& =\Delta^4\left(y_0-2 \Delta y_0+3 \Delta^2 y_0-4 \Delta^3 y_0+\cdots\right) \\
+	& =\Delta^4 y_0-2 \Delta^5 y_0+3 \Delta^6 y_0-4 \Delta^7 y_0+\cdots
+\end{aligned}
+$$
+Hence Eq. (3.8) gives the identity
+\begin{equation}\label{3.09}
+	\begin{aligned}
+		y_0+p \Delta y_0 & +\frac{p(p-1)}{2 !} \Delta^2 y_0+\frac{p(p-1)(p-2)}{3 !} \Delta^3 y_0 \\
+		& +\frac{p(p-1)(p-2)(p-3)}{4 !} \Delta^4 y_0+\cdots \\
+		= & y_0+G_1 \Delta y_0+G_2\left(\Delta^2 y_0-\Delta^3 y_0+\Delta^4 y_0-\Delta^5 y_0+\cdots\right) \\
+		+ & G_3\left(\Delta^3 y_0-\Delta^4 y_0+\Delta^5 y_0-\Delta^6 y_0+\cdots\right) \\
+		+ & G_4\left(\Delta^4 y_0-2 \Delta^5 y_0+3 \Delta^6 y_0-4 \Delta^7 y_0+\cdots\right)+\cdots
+	\end{aligned}
+\end{equation}
+Equating the coefficients of $\Delta y_0, \Delta^2 y_0, \Delta^3 y_0$, etc., on both sides of Eq. (3.08), we obtain
+\begin{equation}\label{3.10}
+	\left.\begin{array}{rl}
+		G_1 & =p \\
+		G_2 & =\frac{p(p-1)}{2 !} \\
+		G_3 & =\frac{(p+1) p(p-1)}{3 !} \\
+		G_4 & =\frac{(p+1) p(p-1)(p-2)}{4 !}
+	\end{array}\right\}
+\end{equation}
+\subsection{Gauss' Backward Formula}
+This formula uses the  differences which lie on the table shown below \\
+
+Gauss' backward formula can therefore be assumed to be of the form
+\begin{equation}\label{3.10}
+	y_p=y_0+G_1^{\prime} \Delta y_{-1}+G_2^{\prime} \Delta^2 y_{-1}+G_3^{\prime} \Delta^3 y_{-2}+G_4^{\prime} \Delta^4 y_{-2}+\cdots
+\end{equation}
+where $G_1^{\prime}, G_2^{\prime}, \ldots$ have to be determined. Following the same procedure as in Gauss' forward formula, we obtain
+\begin{equation}\label{3.11}
+	\left.\begin{array}{rl}
+		G_1^{\prime} & =p \\
+		G_2^{\prime} & =\frac{p(p+1)}{2 !} \\
+		G_3^{\prime} & =\frac{(p+1) p(p-1)}{3 !} \\
+		G_4^{\prime} & =\frac{(p+2)(p+1) p(p-1)}{4 !} \\
+		\vdots
+	\end{array}\right\}
+\end{equation}\\[1cm]
+\textbf{Example:} From the following table, find the value of $e^{1.17}$ using Gauss' forward formula:\\
+\begin{center}
+	\begin{tabular}{cc}
+		$x$ & $e^x$ \\
+		\hline 1.00 & 2.7183 \\
+		1.05 & 2.8577 \\
+		1.10 & 3.0042 \\
+		1.15 & 3.1582 \\
+		1.20 & 3.3201 \\
+		1.25 & 3.4903 \\
+		1.30 & 3.6693 \\
+		\hline
+	\end{tabular}
+\end{center}
+We have
+$$
+1.17=1.15+p(0.05),
+$$
+which gives
+$$
+p=\frac{0.02}{0.05}=\frac{1}{4} .
+$$
+The difference table is given below.\\
+
+Using formulae (3.9), we obtain
+$$
+\begin{aligned}
+	e^{1.17}= & 3.1582+\frac{2}{5}(0.1619)+\frac{(2 / 5)(2 / 5-1)}{2}(0.0079) \\
+	& +\frac{(2 / 5+1)(2 / 5)(2 / 5-1)}{6}(0.0004) \\
+	= & 3.1582+0.0648-0.0009 \\
+	= & 3.2221 .
+\end{aligned}
+$$\\
+\textbf{Program:}
+\begin{lstlisting}
+	def pcalc(p, n):
+		temp = p;
+		for i in range(1, n):
+			if(i%2==1):
+				temp * (p - i)
+			else:
+				temp * (p + i)
+		return temp;
+	def fact(n):
+		f = 1
+		for i in range(2, n + 1):
+			f=f*i
+		return f
+	n = 7;
+	x = [ 1, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30 ];
+	y = [[0 for i in range(n)]
+		for j in range(n)];
+	y[0][0] = 2.7183;
+	y[1][0] = 2.8577;
+	y[2][0] = 3.0042;
+	y[3][0] = 3.1582; 
+	y[4][0] = 3.3201;
+	y[5][0] = 3.4903;
+	y[6][0] = 3.6693;
+	for i in range(1, n):
+		for j in range(n - i):
+			y[j][i] =round((y[j + 1][i - 1] - 
+			y[j][i - 1]),4);
+	for i in range(n):
+		print(x[i], end = "\t");
+		for j in range(n - i):
+			print(y[i][j], end = "\t");
+		print("");
+	value = 1.17;
+	sum = y[int(n/2)][0];
+	p = (value - x[int(n/2)]) / (x[1] - x[0])
+	for i in range(1,n):
+		sum = sum + (pcalc(p, i) * y[int((n-i)/2)][i]) / 
+		fact(i)
+	print("\nValue at", value,"is", sum)
+\end{lstlisting}
+\textbf{Output:}
+\begin{verbatim}
+	1       2.7183  0.1394  0.0071  0.0004  0.0     0.0     0.0001
+	1.05    2.8577  0.1465  0.0075  0.0004  0.0     0.0001
+	1.1     3.0042  0.154   0.0079  0.0004  0.0001
+	1.15    3.1582  0.1619  0.0083  0.0005
+	1.2     3.3201  0.1702  0.0088
+	1.25    3.4903  0.179
+	1.3     3.6693
+	
+	Value at 1.17 is 3.224567055555556
+\end{verbatim}
+Hence $e^{1.17}=$\textbf{3.224567}\\
+
+\noindent
+\textbf{\large Pros and Cons}\\
+Newton's Formulae have small length and its easy to add more data points. The method is simple to apply and also possess great local convergence.  But its less efficient compared to others. These are suitable for interpolation near the beginning and end of tabulated values. Gauss' formulae are used to interpolate near the center of the tabulated values. These methods have limited application, since the values of $x$ are assumed to be equidistant.
+
+
+
+\backmatter
+\chapter{Conclusion and Scope for Future Work}
+Numerical Analysis is a branch of mathematics and computer science that solves problems using numerical approximations. It involves designing methods that give approximate but accurate numerical solutions, which is useful in cases where the exact solution is impossible or prohibitively expensive to
+calculate. The great advantage of using numerical analysis is that it investigates and provides practical solution to real-life problems from diverse fields. 
+
+\noindent
+In this dissertation we have discussed solution of equations, solution of ordinary differential equations using various numerical methods. The project also discussed different numerical methods for interpolation, one of the central themes in numerical analysis.  Python codes were written and executed to get a hands on experience of the same.
+\\[0.5cm]
+\textbf{\large Scope for Future Work}\\[0.3cm]
+Each of the methods discussed gives an approximate solution to a mathematical problem using iterative methods which takes computational time, space and energy.  Hence any method which gives the slightest of advantage in any of the above mentioned parameters is highly sought for.  The search for a better approximation or a less computationally complex method or algorithm is a hot research area. Better math modules for numerical computations in Python is also a possibility, the latter being under GNU-GPL.  With greater knowledge in numerical analysis and further expertise in programming, we will be able to find accurate solutions to more relevant and challenging problems in applied mathematics.
+\chapter{Bibliography}
+\begin{itemize}
+\item S.S Sastry, \textit{Introductory Method Of Numerical Analysis, Fifth Edition} PHI private Limited -2012
+\item James F Epperson, \textit{An Introduction to Numerical Methods and Analysis, Second Edition} WILEY-2012
+\item Ervin Kreyszig, \textit{Advanced Engineering Mathematics, 10th Edition} WILEY- 2011
+\item Dr. Charles R. Severance, \textit{Python for Everybody: Exploring Data Using Python 3}- 2009
+\item $LaTeX$ Tutorials, A PRIMER, India $TeX$ Users Group, Trivandrum- 2003
+\item www.Britannica.com
+\item www.wikipedia.org
+\item www.geeksforgeeks.org
+\end{itemize}
+\end{document}
